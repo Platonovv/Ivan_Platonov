@@ -1,0 +1,40 @@
+#include <iostream>
+#include <cstring>
+#include <locale>
+
+using namespace std;
+
+int main()
+{
+	setlocale(LC_CTYPE, "rus");
+	char forcode[20] = {};
+	int i, key;
+	cout << "Введите кодируемое слово:" << endl;
+	cin >> forcode;
+	cout << "Введите ключ:" << endl;
+	cin >> key;
+	for (i = 0; i < strlen(forcode); i++)
+	{
+		if (((forcode[i] > 'Z') && (forcode[i] + key >= 'a') && (forcode[i] + key <= 'z')) || (((forcode[i] + key >= 'A') && (forcode[i] + key <= 'Z'))))
+			forcode[i] = forcode[i] + key;
+		else if (forcode[i] + key > 'z')
+			forcode[i] = 'a' + key - ('z' - forcode[i] + 1);
+		else
+			forcode[i] = 'A' + key - ('Z' - forcode[i] + 1);
+	}
+	cout << "Закодированное слово:" << endl << forcode << endl << endl;
+
+	for (i = 0; i < strlen(forcode); i++)
+	{
+		if (((forcode[i] - key >= 'a') && (forcode[i] - key <= 'z')) || (((forcode[i] < 'a') && (forcode[i] - key >= 'A') && (forcode[i] - key <= 'Z'))))
+		{
+			forcode[i] = forcode[i] - key;
+		}
+		else if (forcode[i] - key < 'A')
+			forcode[i] = 'Z' - key + (forcode[i] - 'A'+1);
+		else
+			forcode[i] = 'z' - key + (forcode[i] - 'a'+1);
+
+	}
+	cout << "Декодированное слово:" << endl << forcode << endl << endl;
+}
